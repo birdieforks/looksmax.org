@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thread — Looksmax.org</title>
+  <style>
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── TOP HEADER ── */
+    .top-header {
+      background: #fff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .logo-text {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a2e;
+      letter-spacing: -0.5px;
+      cursor: pointer;
+    }
+
+    .logo-text span {
+      color: #2d5be3;
+    }
+
+    .logo-tagline {
+      font-size: 11px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .top-header .ad-banner {
+      flex: 1;
+      background: linear-gradient(135deg, #1a2a6c, #2d5be3);
+      color: #fff;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 56px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .si-twitter  { background: #1da1f2; }
+    .si-discord  { background: #5865f2; }
+    .si-instagram{ background: #e1306c; }
+    .si-pinterest{ background: #e60023; }
+    .si-email    { background: #555; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      background: #2c3e6b;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 44px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-btn {
+      color: #dde3f5;
+      padding: 0 14px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+
+    .nav-btn:hover { background: rgba(255,255,255,0.1); }
+
+    .breadcrumb {
+      color: #8a9dc2;
+      font-size: 12px;
+      padding: 0 14px;
+    }
+
+    .breadcrumb a {
+      color: #dde3f5;
+      cursor: pointer;
+    }
+
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-link {
+      color: #dde3f5;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .nav-link:hover { background: rgba(255,255,255,0.1); }
+
+    .nav-icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #dde3f5;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* ── THREAD HEADER ── */
+    .thread-header {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 16px 20px;
+    }
+
+    .thread-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .thread-meta {
+      font-size: 12px;
+      color: #888;
+      display: flex;
+      gap: 16px;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .page-body {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    /* ── POSTS SECTION ── */
+    .thread-posts {
+      background: #fff;
+      border: 1px solid #dde;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .post {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 16px;
+      padding: 16px;
+      border-bottom: 1px solid #f0f0f4;
+    }
+
+    .post:last-child { border-bottom: none; }
+    .post:hover { background: #f8f9ff; }
+
+    .post-author {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .post-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      background: #eef2ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 700;
+      color: #4a6bc5;
+      overflow: hidden;
+    }
+
+    .post-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .post-username {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2d5be3;
+      text-align: center;
+    }
+
+    .post-status {
+      font-size: 10px;
+      color: #aaa;
+      text-align: center;
+    }
+
+    .post-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .post-message {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #333;
+      word-wrap: break-word;
+    }
+
+    .post-message p {
+      margin: 6px 0;
+    }
+
+    .post-footer {
+      display: flex;
+      gap: 16px;
+      padding-top: 8px;
+      border-top: 1px solid #f0f0f4;
+      font-size: 12px;
+    }
+
+    .post-action {
+      color: #2d5be3;
+      cursor: pointer;
+    }
+
+    .post-action:hover { text-decoration: underline; }
+
+    /* ── REPLY BOX ── */
+    .reply-box {
+      background: #f8f9ff;
+      border-top: 1px solid #dde;
+      padding: 16px;
+    }
+
+    .reply-textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 10px;
+      border: 1px solid #dde;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 14px;
+      resize: vertical;
+    }
+
+    .reply-textarea:focus {
+      outline: none;
+      border-color: #2d5be3;
+      box-shadow: 0 0 0 2px rgba(45, 91, 227, 0.1);
+    }
+
+    .reply-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      justify-content: flex-end;
+    }
+
+    .reply-btn {
+      background: #2c3e6b;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .reply-btn:hover { background: #1a2642; }
+
+    .reply-btn.cancel {
+      background: #ddd;
+      color: #333;
+    }
+
+    .reply-btn.cancel:hover { background: #ccc; }
+
+    /* ── SIDEBAR ── */
+    .sidebar-box {
+      background: #fff;
+      border: 1px solid #dde;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .sidebar-header {
+      background: #2c3e6b;
+      color: #fff;
+      padding: 9px 14px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .thread-item {
+      display: flex;
+      gap: 8px;
+      padding: 9px 12px;
+      border-bottom: 1px solid #f0f0f4;
+    }
+
+    .thread-item:last-child { border-bottom: none; }
+
+    .thread-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #eef2ff;
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #4a6bc5;
+    }
+
+    .thread-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .thread-body { flex: 1; min-width: 0; }
+
+    .thread-title-link {
+      color: #2d5be3;
+      font-size: 13px;
+      font-weight: 600;
+      display: block;
+      line-height: 1.3;
+      margin-bottom: 2px;
+      cursor: pointer;
+    }
+
+    .thread-title-link:hover { text-decoration: underline; }
+
+    .thread-meta-line {
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 2px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #2c3e6b;
+      color: #aab5d4;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-left { display: flex; gap: 14px; align-items: center; }
+    .footer-left a { color: #8a9dc2; cursor: pointer; }
+    .footer-left a:hover { color: #fff; }
+
+    .footer-right { display: flex; gap: 14px; }
+    .footer-right a { color: #8a9dc2; cursor: pointer; }
+    .footer-right a:hover { color: #fff; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       TOP HEADER
+       ══════════════════════════════════════ -->
+  <header class="top-header">
+    <div class="logo">
+      <span class="logo-text" onclick="goHome()">Looksmax<span>.org</span></span>
+      <span class="logo-tagline">Aesthetics matter.</span>
+    </div>
+    <div class="ad-banner">
+      🔬 <span>Buy <strong>99% High Purity</strong> Research Peptides — Lab Tested &nbsp;|&nbsp; BUY NOW →</span>
+    </div>
+    <div class="social-icons">
+      <a href="#" class="social-icon si-twitter">𝕏</a>
+      <a href="#" class="social-icon si-discord">D</a>
+      <a href="#" class="social-icon si-instagram">ig</a>
+      <a href="#" class="social-icon si-pinterest">P</a>
+      <a href="#" class="social-icon si-email">✉</a>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       NAVBAR WITH BREADCRUMBS
+       ══════════════════════════════════════ -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a class="nav-btn" href="looksmax-template.html">💬 Forums ▾</a>
+      <a class="nav-btn" href="#">📋 Rules</a>
+      <span class="breadcrumb">
+        <a onclick="goHome()">Forums</a> / <span id="categoryBreadcrumb">Category</span>
+      </span>
+    </div>
+    <div class="nav-right">
+      <a class="nav-link" href="#">Log in</a>
+      <a class="nav-link" href="#">Register</a>
+      <span class="nav-icon-btn">⚡</span>
+      <span class="nav-icon-btn">◎</span>
+      <a class="nav-link" href="#">🔍 Search</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       THREAD HEADER
+       ══════════════════════════════════════ -->
+  <div class="thread-header">
+    <div class="thread-title" id="threadTitle">Thread Title Goes Here</div>
+    <div class="thread-meta">
+      <span>Started by <strong id="threadAuthor">author</strong></span>
+      <span id="threadDate">Today at 6:27 PM</span>
+      <span id="threadStats">Replies: 0</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       MAIN CONTENT
+       ══════════════════════════════════════ -->
+  <main class="page-body">
+
+    <!-- POSTS SECTION -->
+    <div class="thread-posts">
+      <!-- Posts will be inserted here by JavaScript -->
+      <div id="postsContainer">
+        <!-- Sample post structure (will be populated) -->
+      </div>
+
+      <!-- REPLY BOX -->
+      <div class="reply-box">
+        <textarea class="reply-textarea" id="replyText" placeholder="Write your reply here..."></textarea>
+        <div class="reply-buttons">
+          <button class="reply-btn cancel">Preview</button>
+          <button class="reply-btn" onclick="addReply()">Post Reply</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-box">
+        <div class="sidebar-header">💬 Other Threads</div>
+        <!-- Other threads will be inserted here -->
+        <div id="otherThreads">
+          <div class="thread-item">
+            <div class="thread-avatar">TM</div>
+            <div class="thread-body">
+              <a class="thread-title-link" href="#">Popular thread example</a>
+              <div class="thread-meta-line">Started by username · 5 minutes ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- ════════════════════════════════════ FOOTER ════════════════════════════════════ -->
+  <footer>
+    <div class="footer-left">
+      <span>✏️ Style chooser</span>
+      <span>🌙 Light/Dark</span>
+    </div>
+    <div class="footer-right">
+      <a href="#">Contact us</a>
+      <a href="#">About</a>
+      <a href="#">Partnerships</a>
+      <a href="#">Terms and rules</a>
+      <a href="#">Privacy policy</a>
+      <a href="#">Help</a>
+      <a href="#">Home</a>
+    </div>
+  </footer>
+
+  <script>
+    const threadsData = {
+      // What is Looksmaxxing
+      "what-is-looksmaxxing": {
+        category: "What is Looksmaxxing?",
+        threads: [
+          {
+            id: "wil1",
+            title: "The complete beginner's guide to looksmaxxing",
+            author: "182ltn",
+            authorPfp: "HX",
+            date: "Today at 6:27 PM",
+            posts: [
+              {
+                username: "182ltn",
+                pfp: "HX",
+                status: "Senior Member",
+                time: "6:27 PM",
+                content: "Looksmaxing is an online self-improvement trend focused on increasing one's physical attractiveness through fitness, grooming, fashion, skincare, surgery and extreme appearance analysis. Discussions range from everyday advice, known as softmaxing like a skincare routine, to more extreme topics involving cosmetic procedures and facial structure modification. Users on the most popular forum of this trend, looksmax.org often share ratings, progress photos, guides, and debates about attractiveness, creating a space that blends self-improvement, beauty standards, and internet subculture."
+              },
+              {
+                username: "boywonder",
+                pfp: "BW",
+                status: "Member",
+                time: "6:45 PM",
+                content: "While some looksmaxxing content focuses on self-care and confidence, many areas of the community have been criticised for promoting harmful ideas and behaviours. Discussions can become highly judgmental, reducing people to numerical ratings and treating appearance as a person's primary source of value. Some spaces have developed echo chambers where extreme beliefs are reinforced rather than challenged, including pessimistic views about relationships, race, ethnicity, and social status. Critics have also highlighted the presence of racist stereotypes, discrimination, misinformation, and content that can negatively affect self-esteem and mental wellbeing, particularly among younger users who may be more vulnerable to these messages."
+              }
+            ]
+          },
+          {
+            id: "wil2",
+            title: "Hard maxing vs soft maxing: what's the difference?",
+            author: "LTBSLAYER",
+            authorPfp: "MM",
+            date: "5 hours ago",
+            posts: [
+              {
+                username: "LTBSLAYER",
+                pfp: "MM",
+                status: "Member",
+                time: "5 hours ago",
+                content: "Soft maxing = natural methods (gym, diet, fashion, grooming). Hard maxing = surgical procedures. Most people should focus on soft maxing first."
+              }
+            ]
+          }
+        ]
+      },
+
+      // Growth and Popularity Forum
+      "growth-popularity": {
+        category: "Growth and Popularity",
+        threads: [
+          {
+            id: "gp1",
+            title: "How many users are actually on looksmax right now?",
+            author: "mullinMan",
+            authorPfp: "A",
+            date: "Today at 6:27 PM",
+            posts: [
+              {
+                username: "mullinMan",
+                pfp: "MM",
+                status: "Member",
+                time: "6:27 PM",
+                content: "Just curious about the actual daily active user count. The site feels way more active than it used to be."
+              },
+              {
+                username: "needsomessris",
+                pfp: "NS",
+                status: "Senior Member",
+                time: "6:45 PM",
+                content: "Looksmax.org has over 174,000 registered users, with over 28,000,000 posts. Site traffic has definitely increased in recent years. Funny enough the term 'maxxing' went from 1,900 monthly searches a year ago to 9,900 in March 2026"
+              },
+              {
+                username: "HickeyHero",
+                pfp: "HH",
+                status: "Member",
+                time: "7:02 PM",
+                content: "Looksmaxxing began as a niche idea in early online forums in the late 2000s and early 2010s, but it really started to boom in the late 2010s, especially around 2018 to 2020. During this period, it spread rapidly through Reddit communities, imageboards, and later short-form platforms like TikTok and YouTube, where appearance transformation content and “self-improvement” edits became highly shareable. The growth was largely driven by algorithm-based recommendation systems that pushed visually engaging content to wider audiences, turning what was once a small subculture into a more mainstream internet trend. By the early 2020s, looksmaxxing had developed into a recognisable online movement, blending fitness, grooming, and dating advice with more controversial rating-based and appearance-obsessed communities."
+              }
+            ]
+          },
+          {
+            id: "gp2",
+            title: "How i found looksmaxxing",
+            author: "birdie",
+            authorPfp: "B",
+            date: "2 minutes ago",
+            posts: [
+              {
+                username: "birdie",
+                pfp: "B",
+                status: "Member",
+                time: "Just now",
+                content: "I originally found out about looksmaxxing when I was 19, in early 2024, I had a nose surgery to fix my breathing. This made my face and swell up for a months and it made me really insecure. At the same time as this, the looksmaxxing trend blew up on tiktok and i was quickly indoctrinated into it because of feelings at the time. It gave me severe body dysmporphia reguarding my appearance, i blamed how depressed and lonely i was on how i looked. No matter how many times people said i looked fine i just couldnt get over it, tiktok repeatedly told me how much was wrong with me, it reinforced that i was lonely because of this. i eventually found happiness in working out and fixing my bad habits but the knowledge i gained from this time never really left "
+              }
+            ]
+          }
+        ]
+      },
+
+      // Rating Culture
+      "rating-culture": {
+        category: "Rating Culture",
+        threads: [
+          {
+            id: "rc1",
+            title: "Rate my face honestly (be brutally truthful)",
+            author: "RateMePlease",
+            authorPfp: "RM",
+            date: "Today at 4:15 PM",
+            posts: [
+              {
+                username: "RateMePlease",
+                pfp: "RM",
+                status: "New Member",
+                time: "4:15 PM",
+                content: "22M (Users will paste their age and gender usually in the title of their thread) Looking for honest feedback on my facial aesthetics. Here's my current state. What would you rate me on the PSL? (The PSL scale is an online rating system used in looksmaxxing communities to score physical attractiveness, usually from 1 to 10.) [INSERT SELFIE]"
+              },
+              {
+                username: "TypicalChad",
+                pfp: "TC",
+                status: "Member",
+                time: "4:32 PM",
+                content: "LTN LOL, ropemax immediately. (This kind of reply is extremely typical on the site, this user is stating that the thread poster is a below average looking dude 'LTN', and should commit suicide as a result. 'ropemax')"
+              },
+              {
+                username: "goldenboy",
+                pfp: "GB",
+                status: "Member",
+                time: "4:32 PM",
+                content: "Looksmaxxing rating systems like the PSL scale are often criticised for reducing appearance to a numerical score, usually from 1 to 10, based on subjective and heavily biased standards of attractiveness. In these communities, lower scores are often associated with derogatory labels such as “subhuman” or “incel” slang terms, while mid-range scores are sometimes described as “average” or “normie,” and higher scores are labeled with terms like “Chad” or “Stacy” to represent idealised attractiveness. These labels are not universal or scientific, but rather internet slang that reflects exaggerated and often toxic stereotypes about beauty hierarchies. The biggest danger with this thread on the real looksmax site is that often very young people will be posting their face asking for ratings, kids as young as 14 have been known to post in these threads."
+              }
+            ]
+          },
+          {
+            id: "rc2",
+            title: "The rating culture is getting out of hand",
+            author: "CriticalThinker",
+            authorPfp: "CT",
+            date: "3 hours ago",
+            posts: [
+              {
+                username: "CriticalThinker",
+                pfp: "CT",
+                status: "Senior Member",
+                time: "3 hours ago",
+                content: "I'm concerned about how we've normalized rating human appearance. The psychological impact isn't being discussed enough."
+              },
+              {
+                username: "GucciBurger",
+                pfp: "GB",
+                status: "Senior Member",
+                time: "3 hours ago",
+                content: "In many online spaces where these ratings are shared, there are concerns about the presence of minors being exposed to or participating in judgement-based discussions about their appearance. Critics argue that this environment can normalise early self-objectification, induce disorders such as body dysmorphia and encourage unhealthy comparison at a young age. The PSL framework itself has also been linked to problematic ideas, including biased beauty hierarchies and stereotypes that can reflect broader issues of racism and bigotry within certain corners of the community. As a result, these rating cultures are widely debated for their potential impact on self-esteem, identity, and how young users perceive their own value online."
+              },
+              {
+                username: "birdie",
+                pfp: "B",
+                status: "Member",
+                time: "2 hours ago",
+                content: "I have spent some time on the org in the past to see if advice found on there could help, what i did find was actually disgusting and i saw how mainstream it had become. kids as young as 12 were on this app, posting photos of themselves asking god knows who for a rating. at 12 all i cared about was playing football and a ronaldo haircut. i feel so horrible for the youth of today that this is the kinda thing theyre subjected to. tiktok pushes this content, kids look it up on google, and they end up here on this site, where extreme racism, mysogyny, drug use are all promoted "
+              }
+            ]
+          }
+        ]
+      },
+
+      // Bonesmashing
+      "bonesmashing": {
+        category: "Bonesmashing",
+        threads: [
+          {
+            id: "bs1",
+            title: "Safe bonesmashing techniques for beginners",
+            author: "MTNGOD",
+            authorPfp: "SM",
+            date: "Today at 5:00 PM",
+            posts: [
+              {
+                username: "MTNGOD",
+                pfp: "SM",
+                status: "Member",
+                time: "5:00 PM",
+                content: "Looking to start bone remodeling safely. What's the recommended protocol for the zygomatic area?"
+              },
+              {
+                username: "zygomaniac",
+                pfp: "ZM",
+                status: "Member",
+                time: "5:18 PM",
+                content: "Start with light pressure, 15-20 minutes daily. Never force it. I've been doing this for 8 months with good results."
+              },
+              {
+                username: "goldenboy",
+                pfp: "GB",
+                status: "Member",
+                time: "5:18 PM",
+                content: "Bone smashing is an extreme and widely criticised trend that has appeared in some looksmaxxing communities, where individuals attempt to reshape facial bone structure by repeatedly hitting their face with hard objects, often under the belief it can enhance attractiveness. Looksmaxxers will tell you that this practice is based on wolffes law, Wolff's Law is a principle stating that living bone will adapt to the physical loads and mechanical stresses placed upon it but there is no scientific evidence supporting this idea works on facial bones. Medical professionals warn that facial bone structure cannot be safely altered this way. Instead, the practice carries serious risks, including fractures, nerve damage, chronic pain, and long-term disfigurement. Online reports and anecdotal stories from participants describe injuries ranging from swelling and bruising to suspected broken bones, with some cases involving damage near the eye area. This is particularly dangerous because trauma around the orbital region can increase the risk of vision problems or, in severe cases, partial or permanent blindness. As a result, bone smashing is considered a hazardous internet trend rather than a legitimate form of self-improvement."
+              }
+            ]
+          },
+          {
+            id: "bs2",
+            title: "Severe bruising on my Zygo",
+            author: "stuckinMTNhell",
+            authorPfp: "SI",
+            date: "3 minutes ago",
+            posts: [
+              {
+                username: "stuckinMTNhell",
+                pfp: "SI",
+                status: "Member",
+                time: "3 minutes ago",
+                content: "Been a bit too aggressive with my routine. Woke up with significant bruising today. Should I take a break?"
+              },
+               {
+                username: "TypicalChad",
+                pfp: "TC",
+                status: "Member",
+                time: "2 minutes ago",
+                content: "ur an idiot, stop coping n pls ropemax"
+              },
+               {
+                username: "birdie",
+                pfp: "B",
+                status: "Member",
+                time: "1 minute ago",
+                content: "i personally have never participated in this but i can see how one can be fooled into doing so. there are tutorials by wellspoken tiktokkers promoting this, where they use false articles and science to back them up"
+              }
+            ]
+          }
+        ]
+      },
+
+      // Softmaxing
+      "softmaxing": {
+        category: "Softmaxing",
+        threads: [
+          {
+            id: "sm1",
+            title: "Softmaxxing routine that actually works",
+            author: "SkincareGuru",
+            authorPfp: "SG",
+            date: "Today at 2:30 PM",
+            posts: [
+              {
+                username: "SkincareGuru",
+                pfp: "SG",
+                status: "Senior Member",
+                time: "2:30 PM",
+                content: "After 6 months of testing, here's what actually improved my looks, NO BS: retinol for wrinkles, vitamin C for under eyes, consistent sunscreen (retinol will affect sun sensitivity, worth it doe), lifting weights, cardio and getting more time outside:)"
+              },
+              {
+                username: "foidlovingmtn",
+                pfp: "FL",
+                status: "Member",
+                time: "2:47 PM",
+                content: "This mirrors my experience. The key is consistency and patience. Don't expect overnight results."
+              },
+              {
+                username: "goldenboy",
+                pfp: "GB",
+                status: "Member",
+                time: "2:47 PM",
+                content: "Softmaxing refers to the non-invasive side of looksmaxxing, focused on improving appearance through practical, everyday habits rather than extreme measures. I would say that softmaxxing is the only sort of defendable trend in this space. It typically includes basic skincare, maintaining good hygiene, regular grooming, haircuts that suit face shape, dental care, posture, fitness, and learning how to dress in a way that fits your body and personal style. Unlike more controversial parts of the community, softmaxing is generally closer to mainstream self care and fashion advice, and it can genuinely help people present themselves more confidently and feel better in their own skin. However, even here it is often framed through an appearance focused lens, where improvement is measured against narrow beauty standards rather than overall wellbeing, which can lead to unhealthy habits and sometimes addiction. A looksmax.org user known as clavicular, rose to stardom in late 2023 through streaming. On these streams, he often promotes the use of meth and other amphetamines to ‘curb ones appetite’ so he can stay lean (low body fat) in order to look better. This would be classified as a softmax, which is why even something that appears to be well intentioned, can easily be skewed and turned into a malicious practice. "
+              }
+            ]
+          },
+          {
+            id: "sm2",
+            title: "I have 4 inch insoles lol",
+            author: "foidlovingmtn",
+            authorPfp: "FL",
+            date: "16 minutes ago",
+            posts: [
+              {
+                username: "foidlovingmtn",
+                pfp: "FL",
+                status: "Member",
+                time: "16 minutes ago",
+                content: "Just got the insoles and the height boost is insane. Feeling way more confident now."
+              },
+              {
+                username: "TeraSlayerChad",
+                pfp: "TS",
+                status: "Senior Member",
+                time: "16 minutes ago",
+                content: "holy copium, you sir are an idiot, but i respect it, make sure u got them vantage points sorted XD"
+              },
+              {
+                username: "birdie",
+                pfp: "B",
+                status: "Member",
+                time: "14 minutes ago",
+                content: "My experience with the softmaxxing side of things has mostly been helpful, it taught me things like advanced skincare, how to properly workout, what vitamins i may be deficient in, etc. the thing is i am an adult, i can conduct my own research, i know meth isnt a good way to lose weight, that is why i dont do it, but kids watching clavicular could easily follow this deranged advice, which is why it is harmful."
+              }
+            ]
+          }
+        ]
+      },
+
+      //  Algorithm and echochambers
+      "tiktok-algorithm": {
+        category: "Algorithms and Echochambers",
+        threads: [
+          {
+            id: "ta1",
+            title: "How the algorithm amplifies insecurity",
+            author: "MediaCritique",
+            authorPfp: "MC",
+            date: "Today at 3:50 PM",
+            posts: [
+              {
+                username: "MediaCritique",
+                pfp: "MC",
+                status: "Member",
+                time: "3:50 PM",
+                content: "The FYP is designed to show you people 'better' than you. This creates a constant comparison loop."
+              },
+              {
+                username: "hotelbreakfast",
+                pfp: "HB",
+                status: "Member",
+                time: "4:07 PM",
+                content: "Exactly. And it's not an accident. Engagement-driven algorithms optimize for emotional reaction."
+              },
+                {
+                    username: "DDLN",
+                    pfp: "DD",
+                    status: "Senior Member",
+                    time: "4:13 PM",
+                    content: "Platforms like TikTok and Instagram push a constant stream of appearance focused content that makes comparison almost unavoidable. The algorithm is built to keep you watching, so it tends to serve up whatever gets strong reactions, usually very attractive people, transformations, or heavily edited content. Even AI generated images can add to that unrealistic standard. Over time it creates a loop where the more you engage, the more extreme and idealised the content becomes, which can make people feel worse about how they look. Critics argue this can feed insecurity, low self esteem, and body image issues because what you’re seeing stops feeling like real life and starts feeling like the standard."
+                }
+            ]
+          },
+          {
+            id: "ta2",
+            title: "Am I alone?",
+            author: "YungZues",
+            authorPfp: "YZ",
+            date: "10 minutes ago",
+            posts: [
+              {
+                username: "YungZues",
+                pfp: "YZ",
+                status: "Member",
+                time: "9 minutes ago",
+                content: "Just found this community. Are there others feeling isolated and insecure about their appearance?"
+              } , 
+    {
+                username: "TypicalChad",
+                pfp: "TC",
+                status: "Member",
+                time: "7 minutes ago",
+                content: "youll always be a lonely subhuman, youll never get an foid, just accept it and rope lol"
+              } , 
+
+              {
+                username: "goldenboy",
+                pfp: "GB",
+                status: "Member",
+                time: "5 minutes ago",
+                content: "Looksmaxxing and related 'Manosphere' “incel” or “blackpill” spaces can turn into pretty strong echo chambers where extreme takes on dating, status, and looks just keep getting reinforced. A lot of it becomes self reinforcing, people basically validating each others belief that looks are absolutely everything when it comes to relationships, that life is unfair, cruel to them etc. The looksmax.org space directly overlaps with incel communities, where frustration and negative views about women and relationships are very normalised. You will also see dehumanising language pop up very often, such as the word foid (A demeaning synonym for a woman), which just pushes the whole thing even further, further hatred, further violence towards women and others. All of this creates individuals with extremely unhealthy mindsets around real life gender and relationship dynamics."
+              }, 
+    {
+                username: "birdie",
+                pfp: "B",
+                status: "Member",
+                time: "1 minutes ago",
+                content: "like i mentioned in my previous posts, it was very easy for me to get indoctrinated into this space, the timing of my surgery and what i was seeing on social media, instantly hooked me and i started having not normal thoughts on things, its why i chose this for my project, i want to spread awareness about the dangers of this space."
+              } 
+            ]
+          }
+        ]
+      },
+
+      // Youth and participation
+      "minors-participation": {
+        category: "Youth & Participation",
+        threads: [
+          {
+            id: "mp1",
+            title: "I am 14, should I start test?",
+            author: "redhood44",
+            authorPfp: "RD",
+            date: "10 minutes ago",
+            posts: [
+              {
+                username: "redhood44",
+                pfp: "RD",
+                status: "New Member",
+                time: "10 minutes ago",
+                content: "I'm 14 and wondering if I should start testosterone. I feel like I'm falling behind compared to other guys."
+              },
+              {
+                username: "ExperiencedVeteran",
+                pfp: "EV",
+                status: "Senior Member",
+                time: "5 minutes ago",
+                content: "At 14, focus on basics: sleep, nutrition, and light training. Your hormones are already changing. Don't rush into anything."
+              },
+        
+              {
+                username: "TypicalChad",
+                pfp: "TC",
+                status: "Member",
+                time: "4 minutes ago",
+                content: "i say just inject the test bro, thats the only way to get foids in 2026"
+              },
+                  {
+                username: "goldenboy",
+                pfp: "GB",
+                status: "Member",
+                time: "3 minutes ago",
+                content: "One of the most troubling aspects of platforms like looksmax.org is how easily young people find their way in and how hard it becomes to find their way out. Teenagers, whose sense of identity is still forming, are especially susceptible to communities that offer simple answers to complicated feelings of insecurity and loneliness. What often starts as a curious teenager searching for skincare tips or gym advice can quietly shift into something far more damaging. The standards become more extreme, and before long a 14 year old is absorbing the idea that his face structure determines his worth as a human being. Appearance ranking, peer reinforcement, and increasingly radical content work together to pull young users deeper into incel adjacent thinking, where women are seen as objects and personal failure is always someone else's fault. The mental health consequences are very real. Close to 2 in every 100 teenagers already struggle with body dysmorphic disorder. Exposing minors to environments that obsessively scrutinize and judge physical appearance doesn't just hurt their self esteem, it can genuinely alter how they see themselves and others for years to come."
+              }
+            ]
+          },
+          {
+            id: "mp2",
+            title: "Younger members support group",
+            author: "YouthConcern",
+            authorPfp: "YC",
+            date: "3 hours ago",
+            posts: [
+              {
+                username: "YouthConcern",
+                pfp: "YC",
+                status: "Member",
+                time: "3 hours ago",
+                content: "This thread is for teenage members to discuss looksmaxxing safely. Share your concerns and experiences."
+              },
+              {
+                username: "goldenboy",
+                pfp: "GB",
+                status: "Member",
+                time: "2 hours ago",
+                content: "Did you know eating disorder hospitalizations among boys have risen 400% since 2002, per UC San Francisco researcher Jason Nagata. I dont think spaces like these are helping those numbers at all. Especially with the term 'lean is law' going around."
+              }
+            ]
+          }
+        ]
+      },
+
+      // General/Default
+      "default": {
+        category: "Looksmaxxing Forum",
+        threads: [
+          {
+            id: "d1",
+            title: "Welcome to the Thread View",
+            author: "Admin",
+            authorPfp: "AD",
+            date: "Today",
+            posts: [
+              {
+                username: "Admin",
+                pfp: "AD",
+                status: "Administrator",
+                time: "Today",
+                content: "Welcome to the forum. Check out the different threads and discussions happening right now."
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    // Initialize page
+    function initThread() {
+      const params = new URLSearchParams(window.location.search);
+      const categoryId = params.get("cat") || "default";
+      const threadId = params.get("thread") || null;
+
+      const data = threadsData[categoryId] || threadsData["default"];
+      
+      // Set breadcrumb
+      document.getElementById("categoryBreadcrumb").textContent = data.category;
+
+      if (threadId) {
+        // Show specific thread
+        const thread = data.threads.find(t => t.id === threadId);
+        if (thread) {
+          showThread(thread, data.category);
+        }
+      } else {
+        // Show first thread by default
+        if (data.threads.length > 0) {
+          showThread(data.threads[0], data.category);
+        }
+      }
+
+      // Load other threads in sidebar
+      loadOtherThreads(data);
+    }
+
+    function showThread(thread, categoryName) {
+      // Update header
+      document.getElementById("threadTitle").textContent = thread.title;
+      document.getElementById("threadAuthor").textContent = thread.author;
+      document.getElementById("threadDate").textContent = thread.date;
+      document.getElementById("threadStats").textContent = `Replies: ${thread.posts.length - 1}`;
+
+      // Render posts
+      const container = document.getElementById("postsContainer");
+      container.innerHTML = thread.posts.map((post, idx) => `
+        <div class="post">
+          <div class="post-author">
+            <div class="post-avatar">${post.pfp || post.pfp}</div>
+            <div class="post-username">${post.username}</div>
+            <div class="post-status">${post.status}</div>
+          </div>
+          <div class="post-content">
+            <div class="post-header">
+              <span>${post.time}</span>
+              <span>#${idx + 1}</span>
+            </div>
+            <div class="post-message">${post.content}</div>
+            <div class="post-footer">
+              <span class="post-action">👍 Quote</span>
+              <span class="post-action">💬 Reply</span>
+              <span class="post-action">⚠️ Report</span>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function loadOtherThreads(data) {
+      const container = document.getElementById("otherThreads");
+      container.innerHTML = data.threads.slice(0, 5).map(thread => `
+        <div class="thread-item" onclick="switchThread('${thread.id}')">
+          <div class="thread-avatar">${thread.authorPfp}</div>
+          <div class="thread-body">
+            <a class="thread-title-link">${thread.title}</a>
+            <div class="thread-meta-line">Started by <strong>${thread.author}</strong> · ${thread.date}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function switchThread(threadId) {
+      const params = new URLSearchParams(window.location.search);
+      const categoryId = params.get("cat") || "default";
+      const data = threadsData[categoryId] || threadsData["default"];
+      const thread = data.threads.find(t => t.id === threadId);
+      if (thread) {
+        showThread(thread, data.category);
+        window.scrollTo(0, 0);
+      }
+    }
+
+    function addReply() {
+      const text = document.getElementById("replyText").value;
+      if (text.trim()) {
+        alert("Reply posted!");
+        document.getElementById("replyText").value = "";
+      }
+    }
+
+    function goHome() {
+      window.location.href = "looksmax-template.html";
+    }
+
+    // Load on page start
+    window.addEventListener("load", initThread);
+  </script>
+
+</body>
+</html>

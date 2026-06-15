@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Looksmax.org</title>
+  <style>
+    /* =============================================
+       LOOKSMAX.ORG
+       ============================================= */
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── TOP HEADER (logo + social icons + ad banner) ── */
+    .top-header {
+      background: #fff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .logo-text {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a2e;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text span {
+      color: #2d5be3;
+    }
+
+    .logo-tagline {
+      font-size: 11px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .top-header .ad-banner {
+      flex: 1;
+      background: linear-gradient(135deg, #1a2a6c, #2d5be3);
+      color: #fff;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 56px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .si-twitter  { background: #1da1f2; }
+    .si-discord  { background: #5865f2; }
+    .si-instagram{ background: #e1306c; }
+    .si-pinterest{ background: #e60023; }
+    .si-email    { background: #555; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      background: #2c3e6b;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 44px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-btn {
+      color: #dde3f5;
+      padding: 0 14px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+
+    .nav-btn:hover { background: rgba(255,255,255,0.1); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-link {
+      color: #dde3f5;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .nav-link:hover { background: rgba(255,255,255,0.1); }
+
+    .nav-icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #dde3f5;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* ── SECOND AD BANNER ── */
+    .banner-row {
+      background: #fff;
+      padding: 10px 20px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .banner-inner {
+      background: #eef3ff;
+      border: 1px solid #c5d3f5;
+      border-radius: 6px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: #1a2a6c;
+    }
+
+    .banner-inner strong { font-size: 18px; color: #2d5be3; }
+
+    /* ── NEW POSTS BUTTON ROW ── */
+    .action-row {
+      padding: 8px 20px;
+      display: flex;
+      justify-content: flex-end;
+      background: #f0f0f0;
+    }
+
+    .new-posts-btn {
+      background: #2c3e6b;
+      color: #fff;
+      border: none;
+      padding: 7px 16px;
+      border-radius: 5px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .page-body {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    /* ── FORUM SECTIONS ── */
+    .forum-section {
+      background: #fff;
+      border: 1px solid #dde;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .section-header {
+      background: #2c3e6b;
+      color: #fff;
+      padding: 10px 16px;
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .section-header .chevron { font-size: 12px; opacity: 0.7; }
+
+    /* ── FORUM ROW ── */
+    .forum-row {
+      display: grid;
+      grid-template-columns: 48px 1fr auto auto 220px;
+      gap: 0;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid #f0f0f4;
+      transition: background 0.1s;
+      cursor: pointer;
+    }
+
+    .forum-row:last-child { border-bottom: none; }
+    .forum-row:hover { background: #f8f9ff; }
+
+    .forum-icon {
+      width: 38px;
+      height: 38px;
+      background: #eef2ff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #4a6bc5;
+    }
+
+    .forum-info { padding: 0 12px; }
+
+    .forum-name {
+      color: #2d5be3;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 3px;
+      cursor: pointer;
+    }
+
+    .forum-name:hover { text-decoration: underline; }
+
+    .forum-desc {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.4;
+    }
+
+    .forum-sub-links {
+      font-size: 12px;
+      margin-top: 4px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .forum-sub-links a {
+      color: #2d5be3;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .stat-cell {
+      text-align: center;
+      padding: 0 10px;
+      min-width: 80px;
+    }
+
+    .stat-cell .num {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .stat-cell .lbl {
+      font-size: 11px;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .latest-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-left: 10px;
+      border-left: 1px solid #f0f0f4;
+    }
+
+    .latest-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #c5d3f5;
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #2c3e6b;
+    }
+
+    .latest-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .latest-info { font-size: 12px; flex: 1; min-width: 0; }
+
+    .latest-tag {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      margin-right: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .tag-looksmaxxing { background: #e02020; }
+    .tag-news         { background: #2d5be3; }
+    .tag-serious      { background: #2d9e4f; }
+    .tag-discussion   { background: #8a40c4; }
+    .tag-op           { background: #e07020; }
+
+    .latest-title {
+      color: #333;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 160px;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .latest-meta { color: #aaa; font-size: 11px; }
+    .latest-meta .username { color: #2d9e4f; }
+
+    /* ── SIDEBAR ── */
+    .sidebar-box {
+      background: #fff;
+      border: 1px solid #dde;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .sidebar-header {
+      background: #2c3e6b;
+      color: #fff;
+      padding: 9px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    /* New Threads list */
+    .thread-item {
+      display: flex;
+      gap: 8px;
+      padding: 9px 12px;
+      border-bottom: 1px solid #f0f0f4;
+    }
+
+    .thread-item:last-child { border-bottom: none; }
+
+    .thread-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #eef2ff;
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #4a6bc5;
+    }
+
+    .thread-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .thread-body { flex: 1; min-width: 0; }
+
+    .thread-title-link {
+      color: #2d5be3;
+      font-size: 13px;
+      font-weight: 600;
+      display: block;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+
+    .thread-viewers {
+      color: #999;
+      font-size: 11px;
+      font-style: italic;
+    }
+
+    .thread-meta-line {
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 2px;
+    }
+
+    .thread-meta-line .cat {
+      color: #2d9e4f;
+    }
+
+    /* Statistics box */
+    .stats-grid {
+      padding: 10px 14px;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid #f5f5f5;
+      font-size: 13px;
+    }
+
+    .stats-row:last-child { border-bottom: none; }
+    .stats-row .sk { color: #666; }
+    .stats-row .sv { color: #333; font-weight: 600; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #2c3e6b;
+      color: #aab5d4;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-left { display: flex; gap: 14px; align-items: center; }
+    .footer-left a { color: #8a9dc2; cursor: pointer; }
+    .footer-left a:hover { color: #fff; }
+
+    .footer-right { display: flex; gap: 14px; }
+    .footer-right a { color: #8a9dc2; cursor: pointer; }
+    .footer-right a:hover { color: #fff; }
+
+    /* Annotation badges */
+    
+    .sem-note {
+      background: #fff8e1;
+      border-left: 3px solid #f5a623;
+      padding: 7px 10px;
+      margin: 6px 16px 10px;
+      font-size: 12px;
+      color: #7a5800;
+      border-radius: 0 4px 4px 0;
+      line-height: 1.5;
+    }
+
+    .sem-note::before {
+      content: "⚑ NOTE — ";
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       TOP HEADER — Logo + Ad Banner + Social
+       ══════════════════════════════════════ -->
+  <header class="top-header">
+
+    <div class="logo">
+      <span class="logo-text">Looksmax<span>.org</span></span>
+      <span class="logo-tagline">Aesthetics matter.</span>
+    </div>
+
+    <div class="ad-banner">
+      🔬 <span>Buy <strong>99% High Purity</strong> Research Peptides — Lab Tested &nbsp;|&nbsp; BUY NOW →</span>
+    </div>
+
+    <div class="social-icons">
+      <a href="#" class="social-icon si-twitter">𝕏</a>
+      <a href="#" class="social-icon si-discord">D</a>
+      <a href="#" class="social-icon si-instagram">ig</a>
+      <a href="#" class="social-icon si-pinterest">P</a>
+      <a href="#" class="social-icon si-email">✉</a>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       NAVBAR
+       ══════════════════════════════════════ -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a class="nav-btn" href="#">💬 Forums ▾</a>
+      <a class="nav-btn" href="#">📋 Rules</a>
+    </div>
+    <div class="nav-right">
+      <a class="nav-link" href="#">Log in</a>
+      <a class="nav-link" href="#">Register</a>
+      <span class="nav-icon-btn">⚡</span>
+      <span class="nav-icon-btn">◎</span>
+      <a class="nav-link" href="#">🔍 Search</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       SECOND BANNER (below navbar)
+       ══════════════════════════════════════ -->
+  <div class="banner-row">
+    <div class="banner-inner">
+      <div>
+        <strong>DISCLAIMER</strong><br />
+        This is an educational recreation of looksmax.org for critical analysis of online appearance culture. As a result, some of the content is intentionally uninteractable
+        and only shown the mimic what is seen on the real site. Thank you. 
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       NEW POSTS BUTTON ROW
+       ══════════════════════════════════════ -->
+  <div class="action-row">
+    <button class="new-posts-btn">⚡ New posts</button>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       MAIN PAGE BODY
+       Two-column: forum list | sidebar
+       ══════════════════════════════════════ -->
+  <main class="page-body">
+
+    <!-- ── LEFT COLUMN: Forum Categories ── -->
+    <div class="forum-list">
+
+      <!-- ════════════════════════════
+           SECTION: Information
+           ════════════════════════════ -->
+      <div class="forum-section">
+        <div class="section-header">
+          Information
+          <span class="chevron">▼</span>
+        </div>
+
+        <div class="forum-row" onclick="goToThread('what-is-looksmaxxing')">
+          <div class="forum-icon">📰</div>
+          <div class="forum-info">
+            <div class="forum-name">What is Looksmaxxing?</div>
+            <div class="forum-desc">A place to discuss the fundamentals of looksmaxxing.</div>
+          </div>
+          <div class="stat-cell"><div class="num">79</div><div class="lbl">Threads</div></div>
+          <div class="stat-cell"><div class="num">7.5K</div><div class="lbl">Posts</div></div>
+          <div class="latest-cell">
+            <div class="latest-avatar">HX</div>
+            <div class="latest-info">
+              <span class="latest-tag tag-news">News</span>
+              <span class="latest-title">I am new here should i start hgh?</span>
+              <div class="latest-meta">Today at 6:27 PM · <span class="username">182ltn</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sem-note">
+          According to Google data trends, the popularity of the term "looksmaxxing" has surged in recent years, starting in July 2023, search trends went from a 0 all the way to a highest of 100 in April 2026. Search interest is indexed on a scale of 0 to 100 relative to a term's peak popularity.
+
+      </div><!-- /section -->
+
+
+      <!-- ════════════════════════════
+           SECTION: Looksmax (main)
+           ════════════════════════════ -->
+      <div class="forum-section">
+        <div class="section-header">
+          Looksmax
+          <span class="chevron">▼</span>
+        </div>
+
+        <!-- FORUM ROW 1 -->
+        <div class="forum-row" onclick="goToThread('growth-popularity')">
+          <div class="forum-icon">⭐</div>
+          <div class="forum-info">
+            <div class="forum-name">Growth and Popularity</div>
+            <div class="forum-desc">Discuss the growth and popularity of looksmaxxing.</div>
+          </div>
+          <div class="stat-cell"><div class="num">160</div><div class="lbl">Threads</div></div>
+          <div class="stat-cell"><div class="num">38.4K</div><div class="lbl">Posts</div></div>
+          <div class="latest-cell">
+            <div class="latest-avatar">NS</div>
+            <div class="latest-info">
+              <span class="latest-tag tag-looksmaxxing">Looksmaxxing</span>
+              <span class="latest-title">Good Threads You...</span>
+              <div class="latest-meta">Today at 7:41 PM · <span class="username">needsomessris</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORUM ROW 2 -->
+        <div class="forum-row" onclick="goToThread('rating-culture')">
+          <div class="forum-icon">♾️</div>
+          <div class="forum-info">
+            <div class="forum-name">Rating Culture</div>
+            <div class="forum-desc">Discuss the culture and practices surrounding ratings in our community.</div>
+            <div class="forum-sub-links">
+              <a href="#">Ratings</a>
+              <a href="#">Rate Me</a>
+             
+            </div>
+          </div>
+          <div class="stat-cell"><div class="num">257.4K</div><div class="lbl">Threads</div></div>
+          <div class="stat-cell"><div class="num">4.1M</div><div class="lbl">Posts</div></div>
+          <div class="latest-cell">
+            <div class="latest-avatar">ST</div>
+            <div class="latest-info">
+              <span class="latest-title">14M Rate Me</span>
+              <div class="latest-meta">2 minutes ago · <span class="username">Striated</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sem-note">
+          Many discussions on appearance rating forums and related communities are reported to skew toward teenagers and young adults (roughly 13 to mid 20s) based on platform demographics and self reported participation.
+        </div>
+
+        <!-- FORUM ROW 3 -->
+        <div class="forum-row" onclick="goToThread('bonesmashing')">
+          <div class="forum-icon">❓</div>
+          <div class="forum-info">
+            <div class="forum-name">Bonesmashing</div>
+            <div class="forum-desc">Discuss the art and science of bonesmashing.</div>
+          </div>
+          <div class="stat-cell"><div class="num">106.3K</div><div class="lbl">Threads</div></div>
+          <div class="stat-cell"><div class="num">1.2M</div><div class="lbl">Posts</div></div>
+          <div class="latest-cell">
+            <div class="latest-avatar">JG</div>
+            <div class="latest-info">
+              <span class="latest-tag tag-looksmaxxing">Looksmaxxing</span>
+              <span class="latest-title">Severe bruising on my Zygo</span>
+              <div class="latest-meta">3 minutes ago · <span class="username">jugulins123</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORUM ROW 4 -->
+        <div class="forum-row" onclick="goToThread('softmaxing')">
+          <div class="forum-icon">💰</div>
+          <div class="forum-info">
+            <div class="forum-name">Softmaxing</div>
+            <div class="forum-desc">The Mainstream Side of Looksmaxxing.</div>
+            <div class="forum-sub-links">
+              <a href="#">Vantage points?</a>
+            </div>
+          </div>
+          <div class="stat-cell"><div class="num">22.6K</div><div class="lbl">Threads</div></div>
+          <div class="stat-cell"><div class="num">466.6K</div><div class="lbl">Posts</div></div>
+          <div class="latest-cell">
+            <div class="latest-avatar">FL</div>
+            <div class="latest-info">
+              <span class="latest-tag tag-serious">Serious</span>
+              <span class="latest-title">I have 4 inch insoles lol</span>
+              <div class="latest-meta">16 minutes ago · <span class="username">foidlovingmtn</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORUM ROW 5 -->
+        <div class="forum-row" onclick="goToThread('tiktok-algorithm')">
+          <div class="forum-icon">⭐</div>
+          <div class="forum-info">
+            <div class="forum-name">Algorithms and Echochambers</div>
+            <div class="forum-desc">How The Algorithm Amplifies Appearance Anxiety</div>
+            <div class="forum-sub-links">
+              <a href="#">Incel Culture</a>
+            </div>
+          </div>
+          <div class="stat-cell"><div class="num">171.2K</div><div class="lbl">Threads</div></div>
+          <div class="stat-cell"><div class="num">2.7M</div><div class="lbl">Posts</div></div>
+          <div class="latest-cell">
+            <div class="latest-avatar">HB</div>
+            <div class="latest-info">
+              <span class="latest-tag tag-op">OP</span>
+              <span class="latest-title">Am I alone?</span>
+              <div class="latest-meta">2 minutes ago · <span class="username">hotelbreakfast1488</span></div>
+            </div>
+          </div>
+        </div>
+        
+
+        <!-- FORUM ROW 6 -->
+        <div class="forum-row" onclick="goToThread('minors-participation')">
+          <div class="forum-icon">💬</div>
+          <div class="forum-info">
+            <div class="forum-name">Youth & Participation</div>
+            <div class="forum-desc">The indoctrination of youth into the looksmaxxing/incel culture.</div>
+          </div>
+          <div class="stat-cell"><div class="num">1.5M</div><div class="lbl">Threads</div></div>
+          <div class="stat-cell"><div class="num">19M</div><div class="lbl">Posts</div></div>
+          <div class="latest-cell">
+            <div class="latest-avatar">SC</div>
+            <div class="latest-info">
+              <span class="latest-title">I am 14, should I start test?</span>
+              <div class="latest-meta">2 minutes ago · <span class="username" style="color:#2d9e4f;">Saint Casanova</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="sem-note">
+          Body dysmorphia affects about 2 in every 100 teens (1.9%), and the disorder is six times more common in girls than boys (UCL, 2024).
+        </div>
+
+      </div><!-- /section -->
+
+
+      <!-- ════════════════════════════
+           SECTION: Looksmax International
+           ════════════════════════════ -->
+  
+      </div><!-- /section -->
+
+    </div><!-- /forum-list -->
+
+
+    <!-- ── RIGHT COLUMN: Sidebar ── -->
+    <aside class="sidebar">
+
+      <!-- New Threads Widget -->
+      <div class="sidebar-box">
+        <div class="sidebar-header">💬 New Threads</div>
+        <div class="thread-item">
+          <div class="thread-avatar">T</div>
+          <div class="thread-body">
+            <a class="thread-title-link" href="#">how to fix straight eyelashes <span class="thread-viewers">(12 Viewers)</span></a>
+            <div class="thread-meta-line">Started by tolak444 · 8 minutes ago · Replies: 13</div>
+            <div class="thread-meta-line"><span class="cat">Looksmaxxing</span></div>
+          </div>
+        </div>
+
+        <div class="thread-item">
+          <div class="thread-avatar">Tr</div>
+          <div class="thread-body">
+            <a class="thread-title-link" href="#">Just ordered hgh <span class="thread-viewers">(3 Viewers)</span></a>
+            <div class="thread-meta-line">Started by trimaxx · 8 minutes ago · Replies: 1</div>
+            <div class="thread-meta-line"><span class="cat">Looksmaxxing</span></div>
+          </div>
+        </div>
+
+        <div class="thread-item">
+          <div class="thread-avatar">Th</div>
+          <div class="thread-body">
+            <a class="thread-title-link" href="#">Thoughts on CBD <span class="thread-viewers">(3 Viewers)</span></a>
+            <div class="thread-meta-line">Started by Threnwick · 10 minutes ago · Replies: 0</div>
+            <div class="thread-meta-line"><span class="cat">Looksmaxxing Questions</span></div>
+          </div>
+        </div>
+
+        <div class="thread-item">
+          <div class="thread-avatar">D</div>
+          <div class="thread-body">
+            <a class="thread-title-link" href="#">
+
+              <span style="background:#2d9e4f; color:#fff; font-size:10px; padding:1px 6px; border-radius:3px; margin-right:4px;">Looksmax</span>
+              Alexander delsarte method <span class="thread-viewers">(4 Viewers)</span>
+            </a>
+            <div class="thread-meta-line">Started by Dungzz2206 · 10 minutes ago · Replies: 0</div>
+            <div class="thread-meta-line"><span class="cat">Looksmaxxing</span></div>
+          </div>
+        </div>
+
+      </div><!-- /new threads -->
+
+
+      <!-- Statistics Widget -->
+      <div class="sidebar-box">
+        <div class="sidebar-header">📊 Statistics</div>
+        <div class="stats-grid">
+          <div class="stats-row"><span class="sk">Threads:</span><span class="sv">2,066,651</span></div>
+          <div class="stats-row"><span class="sk">Posts:</span><span class="sv">27,963,314</span></div>
+          <div class="stats-row"><span class="sk">Members:</span><span class="sv">174,407</span></div>
+          <div class="stats-row"><span class="sk">Latest member:</span><span class="sv" style="color:#2d9e4f;">EuropeanLTN</span></div>
+        </div>
+      </div>
+
+
+
+    </aside>
+
+  </main><!-- /page-body -->
+
+
+  <!-- ════════════════════════════════
+       FOOTER
+       ════════════════════════════════ -->
+  <footer>
+    <div class="footer-left">
+      <span>✏️ Style chooser</span>
+      <span>🌙 Light/Dark</span>
+    </div>
+    <div class="footer-right">
+      <a href="#">Contact us</a>
+      <a href="#">About</a>
+      <a href="#">Partnerships</a>
+      <a href="#">Terms and rules</a>
+      <a href="#">Privacy policy</a>
+      <a href="#">Help</a>
+      <a href="#">Home</a>
+    </div>
+  </footer>
+
+  <script>
+    function goToThread(categoryId) {
+      window.location.href = `thread.html?cat=${categoryId}`;
+    }
+  </script>
+
+</body>
+</html>
